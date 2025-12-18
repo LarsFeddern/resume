@@ -11,47 +11,104 @@
             box-sizing: border-box;
         }
 
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(45, 91, 78, 0.3), 0 0 40px rgba(45, 91, 78, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(45, 91, 78, 0.5), 0 0 60px rgba(45, 91, 78, 0.2);
+            }
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #E8F0E8 0%, #D4E5D4 100%);
+            background: linear-gradient(135deg, #D4F1E8, #A8E6CF, #7FCBA4, #56B089, #2D5B4E);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
         }
 
         .container {
             max-width: 680px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .profile {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: float 6s ease-in-out infinite;
         }
 
         .profile-image {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #2D5B4E;
-            margin-bottom: 20px;
-            background: #507A6C;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #507A6C, #2D5B4E);
             display: inline-block;
+            box-shadow: 0 8px 32px rgba(45, 91, 78, 0.3);
+            animation: glow 3s ease-in-out infinite;
+            backdrop-filter: blur(10px);
         }
 
         .profile h1 {
-            color: #1E3A32;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            color: #FFFFFF;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.5px;
         }
 
         .profile p {
-            color: #3D6B5C;
-            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            font-weight: 400;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
         }
 
         .links {
@@ -65,43 +122,77 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            padding: 18px 24px;
-            background: #FFFFFF;
-            border: 2px solid #2D5B4E;
-            border-radius: 12px;
-            color: #1E3A32;
+            padding: 20px 28px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            color: #FFFFFF;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(45, 91, 78, 0.1);
+            font-size: 17px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(45, 91, 78, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .link-button:hover::before {
+            left: 100%;
         }
 
         .link-button:hover {
-            background: #2D5B4E;
-            color: #FFFFFF;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(45, 91, 78, 0.2);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 48px rgba(45, 91, 78, 0.35);
+        }
+
+        .link-button:active {
+            transform: translateY(-2px) scale(1.01);
         }
 
         .link-button svg {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             fill: currentColor;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         @media (max-width: 600px) {
             .profile h1 {
-                font-size: 20px;
+                font-size: 26px;
             }
 
             .profile p {
-                font-size: 14px;
+                font-size: 16px;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
             }
 
             .link-button {
-                padding: 16px 20px;
-                font-size: 15px;
+                padding: 18px 24px;
+                font-size: 16px;
+            }
+
+            .link-button svg {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
