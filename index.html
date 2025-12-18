@@ -44,7 +44,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #D4F1E8, #A8E6CF, #7FCBA4, #56B089, #2D5B4E);
-            background-size: 400% 400%;
+            background-size: 300% 300%;
             animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             display: flex;
@@ -53,6 +53,12 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                animation: none;
+            }
         }
 
         body::before {
@@ -66,6 +72,13 @@
             background-size: 50px 50px;
             animation: float 20s ease-in-out infinite;
             pointer-events: none;
+            will-change: transform;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before {
+                animation: none;
+            }
         }
 
         .container {
@@ -81,6 +94,12 @@
             animation: float 6s ease-in-out infinite;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .profile {
+                animation: none;
+            }
+        }
+
         .profile-image {
             width: 140px;
             height: 140px;
@@ -93,6 +112,12 @@
             box-shadow: 0 8px 32px rgba(45, 91, 78, 0.3);
             animation: glow 3s ease-in-out infinite;
             backdrop-filter: blur(10px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .profile-image {
+                animation: none;
+            }
         }
 
         .profile h1 {
@@ -124,8 +149,8 @@
             gap: 12px;
             padding: 20px 28px;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 16px;
             color: #FFFFFF;
@@ -136,6 +161,12 @@
             box-shadow: 0 8px 32px rgba(45, 91, 78, 0.2);
             position: relative;
             overflow: hidden;
+        }
+
+        @supports not (backdrop-filter: blur(15px)) {
+            .link-button {
+                background: rgba(255, 255, 255, 0.25);
+            }
         }
 
         .link-button::before {
