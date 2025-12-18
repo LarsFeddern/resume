@@ -111,7 +111,6 @@
             display: inline-block;
             box-shadow: 0 8px 32px rgba(45, 91, 78, 0.3);
             animation: glow 3s ease-in-out infinite;
-            backdrop-filter: blur(10px);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -149,8 +148,8 @@
             gap: 12px;
             padding: 20px 28px;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 16px;
             color: #FFFFFF;
@@ -163,7 +162,7 @@
             overflow: hidden;
         }
 
-        @supports not (backdrop-filter: blur(15px)) {
+        @supports not (backdrop-filter: blur(10px)) {
             .link-button {
                 background: rgba(255, 255, 255, 0.25);
             }
@@ -180,8 +179,20 @@
             transition: left 0.5s;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .link-button::before {
+                transition: none;
+            }
+        }
+
         .link-button:hover::before {
             left: 100%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .link-button:hover::before {
+                left: -100%;
+            }
         }
 
         .link-button:hover {
